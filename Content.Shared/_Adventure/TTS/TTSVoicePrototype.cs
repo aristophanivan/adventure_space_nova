@@ -22,4 +22,7 @@ public sealed partial class TTSVoicePrototype : IPrototype
 
     [DataField("sponsorOnly")]
     public bool SponsorOnly { get; private set; } = false;
+
+    [DataField("gender")]
+    public string Gender { get; private set; } = "None";
 }
