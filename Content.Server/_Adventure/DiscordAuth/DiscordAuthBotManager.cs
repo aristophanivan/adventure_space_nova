@@ -234,7 +234,7 @@ public sealed class DiscordAuthBotManager
         {
             try {
                 HttpListenerContext ctx = listener.GetContext();
-                HandleConnection(ctx);
+                await HandleConnection(ctx);
             } catch (Exception e) {
                 _sawmill.Error($"Error handling discord callback:\n{e}");
             }
@@ -334,8 +334,8 @@ public sealed class DiscordAuthBotManager
                     }
                     var hb = hello.d?.heartbeat_interval ?? 100000;
                     _sawmill.Info($"Heartbeat interval: {hb}");
-                    Task.Run(() => HeartbeatThread(ws, hb, CommandListeningCancelation?.Token ?? default));
-                    ws.SendAsync(
+                    _ = Task.Run(() => HeartbeatThread(ws, hb, CommandListeningCancelation?.Token ?? default));
+                    await ws.SendAsync(
                         new ArraySegment<byte>(Encoding.UTF8.GetBytes($"{{\"op\": 2, \"d\": {{\"token\": \"{botToken}\"," +
                                                                       $"\"intents\": 512, \"properties\": {{\"os\": \"linux\"," +
                                                                       $"\"browser\": \"irc was better\", \"device\": " +

@@ -9,7 +9,6 @@ namespace Content.Client._Adventure.EnergyCores;
 
 public sealed class ComputerEnergyCoreControlBoundUserInterface : BoundUserInterface
 {
-    private EntityQuery<DeviceLinkSourceComponent> _recQuery;
     private ComputerEnergyCoreControlWindow? _window;
 
     public ComputerEnergyCoreControlBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
