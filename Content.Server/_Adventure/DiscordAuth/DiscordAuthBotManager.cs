@@ -72,7 +72,7 @@ public sealed class DiscordAuthBotManager
     {
         try {
             return JsonSerializer.Deserialize<T>(value);
-        } catch (JsonException e) {
+        } catch (JsonException) {
             var typeName = typeof(T);
             _sawmill.Error($"Error, can't convert {value} to {typeName}");
         }
