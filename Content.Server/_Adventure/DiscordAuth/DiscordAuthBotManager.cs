@@ -334,6 +334,16 @@ public sealed class DiscordAuthBotManager
 
     public async Task CommandListenerThread()
     {
+        if (GuildId == string.Empty)
+        {
+            _sawmill.Error($"No {ACVars.DiscordAuthGuildId.Name} for command listener");
+            return;
+        }
+        if (ApplicationId == string.Empty)
+        {
+            _sawmill.Error($"No {ACVars.DiscordAuthApplicationId.Name} for command listener");
+            return;
+        }
         try {
             while (!(CommandListeningCancelation?.Token.IsCancellationRequested ?? true))
             {
@@ -373,7 +383,8 @@ public sealed class DiscordAuthBotManager
                             new("wypi", 1, "When you prototype it", Array.Empty<DiscordCommandOption>()),
                         };
                     DiscordCommand[] existingCommands;
-                    using (var request = new HttpRequestMessage(HttpMethod.Get, $"applications/{ApplicationId}/guilds/{GuildId}/commands"))
+                    var uri = $"applications/{ApplicationId}/guilds/{GuildId}/commands";
+                    using (var request = new HttpRequestMessage(HttpMethod.Get, uri))
                     {
                         request.Headers.Add("Authorization", $"Bot {botToken}");
                         using HttpResponseMessage resp = await discordClient.SendAsync(request);
@@ -381,6 +392,7 @@ public sealed class DiscordAuthBotManager
                         if (remoteCommands is null)
                         {
                             _sawmill.Error("Can't get remote commands");
+                            _sawmill.Debug($"req {uri}");
                             return;
                         }
                         existingCommands = remoteCommands;
