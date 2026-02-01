@@ -11,16 +11,15 @@ public sealed class ComputerEnergyCoreControlBoundUserInterface : BoundUserInter
 {
     private ComputerEnergyCoreControlWindow? _window;
 
-    public ComputerEnergyCoreControlBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public ComputerEnergyCoreControlBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey) {}
+
     protected override void Open()
     {
         base.Open();
-
         _window = this.CreateWindow<ComputerEnergyCoreControlWindow>();
         _window.OnPowerToggleButton += value => SendMessage(new EnergyCoreConsoleIsOnMessage(value));
     }
+
     protected override void UpdateState(BoundUserInterfaceState state)
     {
         base.UpdateState(state);
@@ -28,15 +27,5 @@ public sealed class ComputerEnergyCoreControlBoundUserInterface : BoundUserInter
         _window.SetTimeOfLife(cast.TimeOfLife);
         _window.SetPower(cast.IsOn);
         _window.SetDamage(cast.CurDamage);
-
-    }
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-
-        if (!disposing)
-            return;
-
-        _window?.Dispose();
     }
 }
