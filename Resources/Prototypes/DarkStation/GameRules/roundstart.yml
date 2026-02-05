@@ -47,7 +47,7 @@
       - type: NarsiCultRole
         prototype: NarsiCultist
       - type: RoleBriefing
-        briefingLoc: narsi-cultist-briefing
+        briefing: narsi-cultist-briefing
       blacklist:
         components:
         - Chaplain
@@ -84,7 +84,7 @@
       - type: RatvarRole
         prototype: RatvarRighteous
       - type: RoleBriefing
-        briefingLoc: ratvar-righteous-briefing
+        briefing: ratvar-righteous-briefing
       blacklist:
         components:
         - Chaplain
@@ -113,4 +113,4 @@
       - type: VampireRole
         prototype: Vampire
       - type: RoleBriefing
-        briefingLoc: vampire-briefing
+        briefing: vampire-briefing
